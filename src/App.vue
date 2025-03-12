@@ -15,6 +15,7 @@ import EventCard from "@/components/EventCard.vue";
         title="Vue Conference"
         when="3-11-2025"
         description="Vue conference where we'll talk about JavaScript and Vue"
+        @register="console.log('Registered!')"
       />
     </div>
 
