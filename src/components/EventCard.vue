@@ -1,4 +1,26 @@
-<script setup>
+<template>
+  <SectionCard>
+    <template #header>
+      <h3>{{ title }}</h3>
+    </template>
+
+    {{ when }}
+
+    <template #footer>
+      <div class="space-y-4">
+        <p>{{ description }}</p>
+        <div class="flex justify-end">
+          <RoundButton @click="console.log('test')" />
+        </div>
+      </div>
+    </template>
+  </SectionCard>
+</template>
+
+<script setup lang="ts">
+import RoundButton from "./RoundButton.vue";
+import SectionCard from "./SectionCard.vue";
+
 defineProps({
   title: String,
   when: String,
@@ -7,21 +29,3 @@ defineProps({
 
 defineEmits(["register"]);
 </script>
-
-<template>
-  <div class="border border-gray-800 bg-white rounded-md">
-    <h2 class="text-xl p-4 border-b border-gray-400 font-medium">
-      {{ title }}
-    </h2>
-    <p class="p-4 border-b border-gray-400">{{ when }}</p>
-    <p class="p-4">{{ description }}</p>
-    <section class="flex justify-end p-4">
-      <button
-        class="border border-gray-400 rounded-full px-3 py-1 hover:bg-gray-200"
-        @click="$emit('register')"
-      >
-        Register
-      </button>
-    </section>
-  </div>
-</template>
