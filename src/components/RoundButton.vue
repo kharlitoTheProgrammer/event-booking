@@ -14,6 +14,7 @@
 const variants = {
   default: "border border-gray-200 hover:bg-gray-200",
   danger: "bg-red-200 enabled:hover:bg-red-100 text-red-900",
+  primary: "bg-blue-500 hover:bg-blue-400 text-white",
 };
 defineProps({
   variant: String,
