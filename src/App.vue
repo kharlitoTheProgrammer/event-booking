@@ -22,7 +22,7 @@
   </main>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import EventCard from "@/components/EventCard.vue";
 import BookingItem from "./components/BookingItem.vue";
 </script>

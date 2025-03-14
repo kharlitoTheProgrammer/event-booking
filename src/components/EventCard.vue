@@ -10,14 +10,14 @@
       <div class="space-y-4">
         <p>{{ description }}</p>
         <div class="flex justify-end">
-          <RoundButton @click="console.log('test')" />
+          <RoundButton @click="console.log('test')">Register</RoundButton>
         </div>
       </div>
     </template>
   </SectionCard>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import RoundButton from "./RoundButton.vue";
 import SectionCard from "./SectionCard.vue";
 
