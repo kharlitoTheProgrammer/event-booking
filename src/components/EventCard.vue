@@ -10,7 +10,7 @@
       <div class="space-y-4">
         <p>{{ description }}</p>
         <div class="flex justify-end">
-          <RoundButton @click="console.log('test')">Register</RoundButton>
+          <RoundButton @click="$emit('register')">Register</RoundButton>
         </div>
       </div>
     </template>
