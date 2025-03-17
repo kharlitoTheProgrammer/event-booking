@@ -6,14 +6,8 @@
 
     <div class="grid grid-cols-2 gap-8">
       <template v-if="!eventsLoading">
-        <EventCard
-          v-for="event in events"
-          :key="event.id"
-          :title="event.title"
-          :when="event.date"
-          :description="event.description"
-          @register="console.log('Registered!')"
-        />
+        <EventCard v-for="event in events" :key="event.id" :title="event.title" :when="event.date"
+          :description="event.description" @register="handleRegistration(event)" />
       </template>
       <template v-else>
         <LoadingEventCard v-for="i in 4" :key="i"></LoadingEventCard>
@@ -21,9 +15,12 @@
     </div>
 
     <h2 class="text-2xl font-medium">Your Bookings</h2>
-    <section class="grid grid-cols-1 gap-8">
-      <BookingItem v-for="i in 3" :key="i" />
-    </section>
+    <template v-if="!bookingsLoading">
+      <BookingItem v-for="booking in bookings" :key="booking.id" :title="booking.eventTitle"></BookingItem>
+    </template>
+    <template v-else>
+      Loading...
+    </template>
   </main>
 </template>
 
@@ -35,7 +32,10 @@ import LoadingEventCard from "./components/LoadingEventCard.vue";
 
 // variable for the events
 const events = ref([]);
+const bookings = ref([]);
 const eventsLoading = ref(false);
+const bookingsLoading = ref(false);
+
 
 // fetch events function (use async await)
 const fetchEvents = async () => {
@@ -48,8 +48,33 @@ const fetchEvents = async () => {
   }
 };
 
+const fetchBookings = async () => {
+  bookingsLoading.value = true;
+  try {
+    const res = await fetch('http://localhost:3001/bookings');
+    bookings.value = await res.json();
+  } finally {
+    bookingsLoading.value = false;
+  }
+};
+
+const handleRegistration = async (event) => {
+  const newBooking = {
+    id: Date.now().toString(),
+    eventId: event.id,
+    eventTitle: event.title
+  };
+
+  await fetch('http://localhost:3001/bookings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...newBooking, status: 'confirmed!' })
+  });
+};
+
 // use onMounted
 onMounted(() => {
   fetchEvents();
+  fetchBookings();
 });
 </script>
